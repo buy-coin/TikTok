@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy Purchase</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:#f7f7f8;color:#171717;
+  min-height:100vh;
+}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fff}
+.header{padding:24px 20px;border-bottom:1px solid #eee}
+.logo{font-size:23px;font-weight:800;letter-spacing:-1px}
+.logo span{color:#fe2c55}
+.connect{
+  min-height:80vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:28px;
+  text-align:center;
+}
+.tiktok{
+  width:78px;height:78px;border-radius:24px;
+  background:#111;display:grid;place-items:center;
+  color:white;font-size:48px;font-weight:bold;
+  box-shadow:5px 5px 0 #25f4ee,-5px -5px 0 #fe2c55;
+  margin-bottom:30px;
+}
+h1{font-size:27px;margin-bottom:12px}
+p{font-size:14px;line-height:1.7;color:#777}
+.btn{
+  width:100%;padding:17px;border:0;border-radius:12px;
+  background:#111;color:#fff;font-size:15px;
+  font-weight:bold;margin-top:28px;cursor:pointer;
+}
+.btn:active{transform:scale(.98)}
+.note{font-size:11px;margin-top:17px;color:#999}
+.dashboard{display:none;padding:22px}
+.card{
+  padding:20px;border:1px solid #eee;border-radius:16px;
+  margin-top:18px;
+}
+.card h3{margin-bottom:8px}
+.status{color:#168a53;font-size:13px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <div class="logo">EASY <span>PURCHASE</span></div>
+  </header>
+
+  <main class="connect" id="connectPage">
+    <div class="tiktok">♪</div>
+    <h1>Connect TikTok</h1>
+    <p>
+      Connect your TikTok account to access
+      Coins Recharge and Promote services.
+    </p>
+
+    <button class="btn" onclick="connectTikTok()">
+      Connect with TikTok
+    </button>
+
+    <div class="note">
+      Secure authorization through TikTok OAuth
+    </div>
+  </main>
+
+  <main class="dashboard" id="dashboard">
+    <h2>Welcome to Easy Purchase</h2>
+    <p class="status" id="accountStatus">TikTok connected</p>
+
+    <div class="card">
+      <h3>Coins Recharge</h3>
+      <p>Recharge your TikTok Coins.</p>
+      <button class="btn">Recharge Coins</button>
+    </div>
+
+    <div class="card">
+      <h3>TikTok Promote</h3>
+      <p>Promote your TikTok videos.</p>
+      <button class="btn">Start Promote</button>
+    </div>
+  </main>
+
+</div>
+
+<script>
+/*
+  BACKEND CONFIGURATION REQUIRED
+
+  Replace this endpoint with your own backend OAuth URL.
+  Never put Client Secret inside this HTML file.
+*/
+const OAUTH_START_URL = "YOUR_BACKEND_OAUTH_START_URL";
+
+function connectTikTok(){
+  if(OAUTH_START_URL.includes("YOUR_BACKEND")){
+    alert("Please configure your TikTok OAuth backend first.");
+    return;
+  }
+  window.location.href = OAUTH_START_URL;
+}
+
+// Backend should redirect here only after validating OAuth state
+// and exchanging the authorization code securely.
+const params = new URLSearchParams(location.search);
+
+if(params.get("connected") === "true"){
+  document.getElementById("connectPage").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+}
+</script>
+</body>
+</html>
